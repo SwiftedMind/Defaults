@@ -1,6 +1,5 @@
 // swift-tools-version:5.11
 import PackageDescription
-import CompilerPluginSupport
 
 let package = Package(
 	name: "Defaults",
@@ -9,71 +8,29 @@ let package = Package(
 		.iOS(.v14),
 		.tvOS(.v14),
 		.watchOS(.v9),
-		.visionOS(.v1)
+		.visionOS(.v1),
 	],
 	products: [
 		.library(
 			name: "Defaults",
 			targets: [
-				"Defaults"
+				"Defaults",
 			]
 		),
-		.library(
-			name: "DefaultsMacros",
-			targets: [
-				"DefaultsMacros"
-			]
-		)
 	],
-	dependencies: [
-		.package(url: "https://github.com/swiftlang/swift-syntax", from: "600.0.1")
-	],
+	dependencies: [],
 	targets: [
 		.target(
 			name: "Defaults",
 			resources: [
-				.copy("PrivacyInfo.xcprivacy")
+				.copy("PrivacyInfo.xcprivacy"),
 			]
-//			swiftSettings: [
-//				.swiftLanguageMode(.v5)
-//			]
-		),
-		.macro(
-			name: "DefaultsMacrosDeclarations",
-			dependencies: [
-				"Defaults",
-				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-				.product(name: "SwiftCompilerPlugin", package: "swift-syntax")
-			]
-		),
-		.target(
-			name: "DefaultsMacros",
-			dependencies: ["Defaults", "DefaultsMacrosDeclarations"]
 		),
 		.testTarget(
 			name: "DefaultsTests",
 			dependencies: [
-				"Defaults"
-			]
-//			swiftSettings: [
-//				.swiftLanguageMode(.v5)
-//			]
-		),
-		.testTarget(
-			name: "DefaultsMacrosDeclarationsTests",
-			dependencies: [
-				"DefaultsMacros",
-				"DefaultsMacrosDeclarations",
-				.product(name: "SwiftSyntaxMacros", package: "swift-syntax"),
-				.product(name: "SwiftSyntaxMacrosTestSupport", package: "swift-syntax")
-			]
-		),
-		.testTarget(
-			name: "DefaultsMacrosTests",
-			dependencies: [
 				"Defaults",
-				"DefaultsMacros"
 			]
-		)
+		),
 	]
 )
